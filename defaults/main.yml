@@ -10,7 +10,7 @@ node_exporter_memory                             : 64m
 node_exporter_memory_swap                        : "{{ node_exporter_memory }}" 
 node_exporter_log_level                          : info 
 node_exporter_restart                            : always 
-node_exporter_restart_sec                        : 100ms 
+node_exporter_restart_sec                        : 10000ms 
  
 # collector 
 node_exporter_unit_include                       : .+.service
