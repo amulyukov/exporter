@@ -1,0 +1,31 @@
+[Unit]
+Description=Node exporter
+Requires=docker.service
+After=docker.service
+[Service]
+Restart={{ node_exporter_restart }}
+RestartSec={{ node_exporter_restart_sec }}
+ExecStartPre=-/usr/bin/{{ node_exporter_service_runtime }} rm {{ node_exporter_service_name }}
+ExecStart=/usr/bin/{{ node_exporter_service_runtime }} run \  
+  --rm \
+  --publish {{ node_exporter_host_port }}:{{ node_exporter_container_port }} \  
+  --cpus {{ node_exporter_cpus }} \
+  --memory {{ node_exporter_memory }} \  
+  --memory-swap {{ node_exporter_memory_swap }} \
+  --volume "/proc:/host/proc:ro" \  
+  --volume "/sys:/host/sys:ro" \
+  --volume "/:/rootfs:ro" \  
+  --volume "/var/run/dbus/:/var/run/dbus/" \
+  --privileged=true \  
+  --net=host \
+  --name {{ node_exporter_service_name }} \  
+  {{ node_exporter_container_image }} \
+  --path.procfs /host/proc \  
+  --path.sysfs /host/sys \
+  --path.rootfs /rootfs \
+  --collector.systemd \
+  --collector.systemd.unit-include={{ node_exporter_unit_include }} \
+  --web.listen-address=:{{ node_exporter_container_port }} \
+  --log.level={{ node_exporter_log_level }}
+ExecStop=/usr/bin/{{ node_exporter_service_runtime }} stop -t 5 {{ node_exporter_service_name }}
+[Install]WantedBy=multi-user.target
