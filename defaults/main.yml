@@ -1,0 +1,16 @@
+node_exporter_service_runtime                    : docker 
+ 
+# service 
+node_exporter_container_image                    : docker-hub.binary.alfabank.ru/prom/node-exporter:v1.5.0 
+node_exporter_service_name                       : node_exporter 
+node_exporter_host_port                          : 9100 
+node_exporter_container_port                     : 9100 
+node_exporter_cpus                               : 0.5 
+node_exporter_memory                             : 64m 
+node_exporter_memory_swap                        : "{{ node_exporter_memory }}" 
+node_exporter_log_level                          : info 
+node_exporter_restart                            : always 
+node_exporter_restart_sec                        : 100ms 
+ 
+# collector 
+node_exporter_unit_include                       : .+.service
