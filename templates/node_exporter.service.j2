@@ -28,4 +28,5 @@ ExecStart=/usr/bin/{{ node_exporter_service_runtime }} run \
   --web.listen-address=:{{ node_exporter_container_port }} \
   --log.level={{ node_exporter_log_level }}
 ExecStop=/usr/bin/{{ node_exporter_service_runtime }} stop -t 5 {{ node_exporter_service_name }}
-[Install]WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
