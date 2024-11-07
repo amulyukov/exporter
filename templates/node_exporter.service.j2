@@ -6,8 +6,7 @@ After=docker.service
 Restart={{ node_exporter_restart }}
 RestartSec={{ node_exporter_restart_sec }}
 ExecStartPre=-/usr/bin/{{ node_exporter_service_runtime }} rm {{ node_exporter_service_name }}
-ExecStart=/usr/bin/{{ node_exporter_service_runtime }} run \  
-  --rm \
+ExecStart=/usr/bin/{{ node_exporter_service_runtime }} run --rm \
   --publish {{ node_exporter_host_port }}:{{ node_exporter_container_port }} \  
   --cpus {{ node_exporter_cpus }} \
   --memory {{ node_exporter_memory }} \  
